@@ -1,0 +1,69 @@
+main{
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+}
+
+.dashboard_menu{
+  height: 100%;
+  background-color: #45b39d;
+  box-shadow: 10px 0px 20px rgba(0, 0, 0, 0.25);
+  display: flex;
+  position: relative;
+  transition: width 0.5s ease;
+  
+}
+
+.dashboard_menu_large{
+  width: 15%;
+}
+
+.dashboard_menu_cort{
+  width: 4%;
+}
+
+.dashboard_controler{
+  height: 7%;
+  background: #45b39d;
+  content: "";
+  position: absolute;
+  right: -6%;
+  top: 45%;
+  border-radius: 0 12px 12px 0;
+  transition: width 0.5s ease, right 0.5s ease;
+  cursor: pointer;
+}
+
+.dashboard_controler_large{
+  width: 6%;
+  right: -6%;
+}
+
+
+.dashboard_controler_cort{
+  width: 20%;
+  right: -20%;
+}
+
+
+.panel{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: width 0.4s ease;
+}
+
+.panel_cort{
+  width: 85%;
+}
+
+.panel_all{
+  width: 96%;
+}
+
+.panel > p{
+  font-size: 1.6vw;
+}
