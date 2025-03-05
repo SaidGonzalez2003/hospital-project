@@ -2,10 +2,26 @@ import { useState } from "react";
 
 import "./App.css";
 import Menu from "./container/menu";
+import ControlPageOne from "./container/control/ControlPageOne";
 
 function App() {
   const [menuAllDash, setMenuAllDash] = useState(true);
- 
+  const [page, setPage] = useState(0);
+
+  // Retorna la pagina
+
+  const renderizarSeccion = () => {
+    switch (page) {
+      case 0:
+        return <ControlPageOne></ControlPageOne>;
+      case 1:
+        return <div>Esta es la sección Acerca de.</div>;
+      case 2:
+        return <div>Esta es la sección de Contacto.</div>;
+      default:
+        return <div>Sección no encontrada.</div>;
+    }
+  };
 
   return (
     <>
@@ -15,12 +31,16 @@ function App() {
           
           </div>
           <Menu 
-          menuAllDash={menuAllDash}></Menu> 
+          menuAllDash={menuAllDash}
+          page={page}
+          setPage={setPage}></Menu> 
         </section >
 
         <section className={(menuAllDash ? 'panel_cort' : 'panel_all') + ' panel '}>
 
-          <p>En Construcción</p>
+          <div className="panel_container">
+            {renderizarSeccion()}
+          </div>
         </section>
       </main>
     </>

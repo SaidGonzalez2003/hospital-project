@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "../css/dashboard_menu.css";
 
-const Menu = ({ menuAllDash }) => {
-  const [page, setPage] = useState(0);
+const Menu = ({ menuAllDash, page, setPage }) => {
+  
 
   return (
     <div className="dash_contain">
