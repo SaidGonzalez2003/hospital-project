@@ -39,6 +39,67 @@
     scale: 1.18;
     font-weight: 600;
     color: #45b39d;
+}
+
+.control_opc_select{
+    scale: 1.1;
+    font-weight: 600;
+    color: #5daedc;
+}
+
+/*Metricas*/
+.control_data_metricas{
+    display: flex;
+    margin-top: 2.6%;
+    justify-content: center;
+    gap: 2.5vw;
+
+}
+
+.metricas_data{
+    width: 18%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8vw; 
+    box-shadow: 8px 8px 14px rgba(0, 0, 0, 0.15);
+    transition: scale 0.4s ease;
+}
+
+.metricas_data > p{
+    width: 50%;
+    font-weight: 600;
+    text-align: center;
+}
+
+.metricas_data_text{
+    width: 50%;
+    height: 3.5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #45b39d;
+    gap: 0.6vw;
+}
+
+.metricas_data_text > p{
+    color: white;
+    font-weight: 600;
+}
+
+.metricas_data_img{
+    width: 1.3vw;
+    aspect-ratio: 1/1;
+    overflow: hidden;
     
+}
+
+.metricas_data_img > img{
     
+    width: 100%;
+    object-fit: contain;
+}
+
+.metricas_data:hover{
+    scale: 1.15;
 }
