@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../css/dashboard_menu.css";
 
 const Menu = ({ menuAllDash, page, setPage }) => {
