@@ -11,7 +11,9 @@ main{
   background-color: #45b39d;
   box-shadow: 10px 0px 20px rgba(0, 0, 0, 0.25);
   display: flex;
-  position: relative;
+  position: sticky;
+  top: 0;
+  left: 0;
   transition: width 0.5s ease;
   z-index: 70;
 }

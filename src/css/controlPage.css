@@ -255,14 +255,18 @@
 }
 
 .control_btn_add_container {
-  width: 4.5%;
+  
+  display: flex;
+  justify-content: end;
   position: fixed;
   bottom: 3.8vh;
   right: 2.5vw;
+  width: 50%;
+  height: 7vh;
+  gap: 1vw;
 }
 
-.control_btn_add_register {
-  width: 100%;
+.control_btn_add_register, .control_btn_PDF {
   aspect-ratio: 1;
   display: flex;
   justify-content: center;
@@ -283,8 +287,22 @@
   font-weight: 600;
 }
 
-.control_btn_add_register:hover {
+.control_btn_PDF{
+  background-color: #de5656;
+}
+
+.control_btn_PDF p{
+  font-size: 2vw;
+  font-weight: 600;
+}
+
+.control_btn_add_register:hover{
   background-color: #399482;
+  scale: 1.14;
+}
+
+.control_btn_PDF:hover{
+  background-color: #982828;
   scale: 1.14;
 }
 
@@ -381,3 +399,24 @@
   transition: width 0.5s ease, height 0.5s ease;
   /* Otras propiedades de estilo */
 }
+
+.control_pdf{
+  z-index: 150;
+  position: absolute;
+  transform: translateY(110vh) ;
+  transition: transform 0.6s ease-in-out, background-color 0.8s ease-out;
+}
+
+.move_animated_pdf{
+  transform: translateY(0vh);
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.control_pdf{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+

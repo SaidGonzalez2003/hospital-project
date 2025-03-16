@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import ControlData from "./ControlData";
 import {
   addRegistros,
@@ -12,8 +12,12 @@ import {
   calcularCV,
   calcularDesviacionEstandar,
   calcularMedia,
+  fechaActual,
 } from "../../js/funciones.js";
+import ControlPdf from "../pdf/ControlPdf.jsx";
 ("../../css/controlPage.css");
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 const ControlPageOne = () => {
   const [controlOpc, setControlOpc] = useState(1);
@@ -22,6 +26,7 @@ const ControlPageOne = () => {
   const [ensayos, setEnsayos] = useState([]);
   const [ocultar, setOcultar] = useState(false);
   const [allLotes, setAllLotes] = useState();
+  const [animatePDF, setAnimatePDF] = useState();
   const [agregarRegistro, setAgregarRegistro] = useState(false);
   const [errorRegistro, setErrorRegistro] = useState(false);
   const [formData, setFormData] = useState({
@@ -31,6 +36,8 @@ const ControlPageOne = () => {
     id_lote: "",
     id_ensayo: "",
   });
+
+  const reportRef = useRef();
 
   //Registros
   useEffect(() => {
@@ -61,6 +68,14 @@ const ControlPageOne = () => {
 
     fetchData(); // Llamar a la función asincrónica
   }, [controlOpc, ensayos]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (animatePDF) {
+        setAnimatePDF(false);
+      }
+    }, 4500);
+  }, [animatePDF]);
 
   //GetEnsayos
   useEffect(() => {
@@ -97,7 +112,7 @@ const ControlPageOne = () => {
           valor: "",
           valor_z: "",
           id_lote: formData.id_lote,
-          id_ensayo: controlOpc
+          id_ensayo: controlOpc,
         });
 
         const resultRegistros = await getRegistrosByLoteEnsayo(
@@ -105,7 +120,7 @@ const ControlPageOne = () => {
           controlOpc
         ); // Verifica que `result` sea el JSON esperado
         setRegistros(resultRegistros);
-      
+
         setAgregarRegistro(false);
         setErrorRegistro(false);
       } else {
@@ -114,6 +129,40 @@ const ControlPageOne = () => {
     } catch (error) {
       console.error("Error al enviar el formulario:", error);
     }
+  };
+
+  const generarPDF = async () => {
+
+    const element = reportRef.current;
+
+    const canvas = await html2canvas(element, { scale: 3, useCORS: true });
+    const imgData = canvas.toDataURL("image/jpeg");
+
+    // Creamos el PDF (por ejemplo, tamaño Carta en portrait)
+    const pdf = new jsPDF("l", "mm", "letter");
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+
+    // Obtenemos las propiedades de la imagen para mantener la relación de aspecto
+    const imgProps = pdf.getImageProperties(imgData);
+    const pdfImgWidth = pageWidth; // La imagen ocupará todo el ancho de la página
+    const pdfImgHeight = (imgProps.height * pdfImgWidth) / imgProps.width;
+
+    let position = 0; // Posición vertical inicial
+    pdf.addImage(imgData, "JPEG", 0, position, pdfImgWidth, pdfImgHeight);
+
+    // Si la imagen es más alta que una página, agregamos nuevas páginas
+    let heightLeft = pdfImgHeight - pageHeight;
+    while (heightLeft > 0) {
+      pdf.addPage();
+      // Calculamos la posición para el fragmento de la imagen que corresponde a la nueva página
+      position = heightLeft - pdfImgHeight;
+      pdf.addImage(imgData, "JPEG", 0, position, pdfImgWidth, pdfImgHeight);
+      heightLeft -= pageHeight;
+    }
+
+    // 8. Guardar el PDF
+    pdf.save("Reporte " + ensayos[controlOpc-1].titulo +" " + fechaActual() + ".pdf");
   };
 
   return (
@@ -311,6 +360,27 @@ const ControlPageOne = () => {
         >
           <p>+</p>
         </div>
+
+        <div
+          className="control_btn_PDF"
+          onClick={() => {
+            generarPDF();
+            setAnimatePDF(true);
+          }}
+        >
+          <p>P</p>
+        </div>
+      </div>
+
+      <div className={(animatePDF ? "move_animated_pdf" : "") + " control_pdf"}>
+        {Array.isArray(registros) && registros.length > 0 && (
+          <ControlPdf
+            reportRef={reportRef}
+            registros={registros}
+            ensayos={ensayos}
+            controlOpc={controlOpc}
+          />
+        )}
       </div>
     </div>
   );
