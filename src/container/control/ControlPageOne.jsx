@@ -91,11 +91,6 @@ const ControlPageOne = () => {
     try {
       const result = await addRegistros(formData);
 
-      console.log(formData);
-      
-
-      console.log(result);
-
       if (result.data) {
         setFormData({
           fecha: "",

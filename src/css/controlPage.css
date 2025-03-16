@@ -110,14 +110,15 @@
   justify-content: space-between;
   gap: 1vw;
   margin-top: 4vh;
-  padding: 0 3vw;
+  padding: 0 1vw 0 3vw;
 }
 
 .control_data_table {
   display: flex;
   flex-direction: column;
-  width: 40%;
+  width: 35%;
   max-height: 74vh;
+  height: min-content;
   overflow-x: hidden;
   border: 2px solid rgb(117, 203, 106);
   box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.15);
@@ -140,6 +141,7 @@
 
 .control_table_data {
   padding: 1.3vh 0;
+  
   width: 100%;
   overflow-x: hidden;
   border-collapse: collapse;
@@ -183,9 +185,7 @@
   background-color: rgb(186, 243, 224);
 }
 
-.control_data_grapics {
-  width: 50%;
-}
+
 
 /*Registro Agregar*/
 
@@ -346,4 +346,38 @@
 
 .ocultar_msg{
   display: none;
+}
+
+/* Graficas */
+
+.control_low_data{
+  width: 80%;
+  height: 25%;
+  margin-top: 20vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  gap: 1vh;
+}
+
+.control_low_data video{
+  height: 80%;
+}
+
+.control_low_data p{
+  font-weight: 500;
+  font-size: 1.2vw;
+}
+
+.control_data_grapics {
+  width: 70%;
+  height: 68vh;
+  position: relative;
+}
+
+.echarts-for-react  {
+  transition: width 0.5s ease, height 0.5s ease;
+  /* Otras propiedades de estilo */
 }

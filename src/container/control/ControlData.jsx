@@ -1,7 +1,9 @@
 import React from "react";
 import "../../css/controlPage.css";
 import "../../js/consultas.js";
+import ReactECharts from "echarts-for-react";
 import { deleteRegistroById, formatDate } from "../../js/consultas.js";
+import { ControlGrafico } from "../../js/funciones.js";
 
 const ControlData = ({ registros, setRegistros }) => {
   const handleDeleteRegistro = (id) => {
@@ -54,10 +56,28 @@ const ControlData = ({ registros, setRegistros }) => {
             ))}
           </tbody>
         </table>
-
       </article>
 
-      <article className="control_data_grapics"></article>
+      <article className="control_data_grapics">
+        {registros.length > 7 ? (
+          <ReactECharts
+            option={ControlGrafico(registros)}
+            style={{ height: "100%", width: "100%" }}
+          />
+        ) : (
+          <div className="control_low_data">
+            <video
+              autoPlay
+              disablePictureInPicture
+              controlsList="nodownload noremoteplayback"
+            >
+              <source src="../src/Grafica.webm" type="video/webm"></source>
+            </video>
+
+            <p>Muy Pocos Datos para Analizar</p>
+          </div>
+        )}
+      </article>
     </>
   );
 };

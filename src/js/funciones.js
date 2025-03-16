@@ -42,3 +42,52 @@ export const validarFecha = (fecha) => {
 
   return true;
 };
+
+export const ControlGrafico = (data) => {
+  const valores = data.map((value) => value.valor);
+
+  const cantidades = data.map((cantidad, index) => index + 1);  
+
+  const grafico = {
+    title: {
+      text: "Grafico Analisis de Información",
+      left: 'center',
+    },
+    xAxis: {
+      type: "category",
+      data: cantidades
+    },
+    tooltip: {
+      trigger: "axis",
+      min: 1
+    },
+    yAxis: {
+      type: "value",
+      min: 2,
+      max: 3.2,
+      interval: 0.2,
+    },
+    series: [
+      {
+        data: valores,
+        type: "line",
+        smooth: true,
+        symbol: "circle",
+        symbolSize: 10,
+        itemStyle: {
+          color: "#1abc9c", // Color de la línea
+          // Opcional: si deseas un borde alrededor del punto, lo defines aquí
+          borderColor: "#1abc9c",
+          borderWidth: 1,
+        },
+        lineStyle: {
+          color: "#1abc9c", // Aquí defines el color de la línea (rojo)
+        },
+      },
+    ],
+    animationDuration: 500,
+    animationDurationUpdate: 500
+  };
+
+  return grafico;
+};

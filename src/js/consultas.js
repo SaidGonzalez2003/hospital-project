@@ -20,7 +20,7 @@ export const getEnsayos = async () => {
       const response = await axios.get(
         `http://localhost:3000/api/ensayos`
       );
-      console.log(response.data);
+
       
       return response.data; // Devolver los datos
     } catch (error) {
@@ -39,7 +39,7 @@ export const deleteRegistroById = async (id) => {
 
 export const getLoteLastValue = async () =>{
   const result = await axios.get('http://localhost:3000/api/lotes/last')
-  /* console.log(result.data[0].Id); */
+
   
   return  result.data[0].Id
   
