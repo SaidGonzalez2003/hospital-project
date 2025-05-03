@@ -39,12 +39,19 @@ const ControlPageOne = () => {
 
   const reportRef = useRef();
 
-  //Registros
+  //obtener los registros del lote mas Reciente
   useEffect(() => {
     const fetchData = async () => {
       const resultLote = await getLoteLastValue();
       setLastLote(resultLote);
+    };
 
+    fetchData();
+  }, []);
+
+  //Registros
+  useEffect(() => {
+    const fetchData = async () => {
       setFormData({
         ...formData,
         id_lote: lastLote,
@@ -69,6 +76,21 @@ const ControlPageOne = () => {
     fetchData(); // Llamar a la función asincrónica
   }, [controlOpc, ensayos]);
 
+  //buscar un nuevo Lote
+  useEffect(() => {
+    const fetchData = async () => {
+      if (Array.isArray(ensayos) && ensayos.length > 0) {
+        const resultRegistros = await getRegistrosByLoteEnsayo(
+          lastLote,
+          controlOpc
+        ); // Verifica que `result` sea el JSON esperado
+        setRegistros(resultRegistros);
+      }
+    };
+
+    fetchData();
+  }, [lastLote]);
+
   useEffect(() => {
     setTimeout(() => {
       if (animatePDF) {
@@ -87,12 +109,14 @@ const ControlPageOne = () => {
     fetchData(); // Llamar a la función asincrónica
   }, []);
 
+  //Animacion Agregar Dato
   useEffect(() => {
     setTimeout(() => {
       setOcultar(agregarRegistro);
     }, 250);
   }, [agregarRegistro]);
 
+  //Agregar Datos de los registros
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -100,6 +124,7 @@ const ControlPageOne = () => {
     });
   };
 
+  //Enviar los datos
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -131,8 +156,8 @@ const ControlPageOne = () => {
     }
   };
 
+  //Generar PDF
   const generarPDF = async () => {
-
     const element = reportRef.current;
 
     const canvas = await html2canvas(element, { scale: 3, useCORS: true });
@@ -162,7 +187,9 @@ const ControlPageOne = () => {
     }
 
     // 8. Guardar el PDF
-    pdf.save("Reporte " + ensayos[controlOpc-1].titulo +" " + fechaActual() + ".pdf");
+    pdf.save(
+      "Reporte " + ensayos[controlOpc - 1].titulo + " " + fechaActual() + ".pdf"
+    );
   };
 
   return (
@@ -237,12 +264,15 @@ const ControlPageOne = () => {
       </div>
 
       <div className="control_data_container">
-        {Array.isArray(registros) && registros.length > 0 ? (
+        {Array.isArray(allLotes) && allLotes.length > 0 ? (
           <ControlData
             registros={registros}
             setRegistros={setRegistros}
             setAgregarRegistro={setAgregarRegistro}
             setOcultar={setOcultar}
+            allLotes={allLotes}
+            lastLote={lastLote}
+            setLastLote={setLastLote}
           />
         ) : (
           <div></div>
@@ -327,7 +357,7 @@ const ControlPageOne = () => {
                     </select>
                   </div>
                 ) : (
-                  <div></div>
+                  <div>Cargando...</div>
                 )}
               </div>
 
@@ -351,7 +381,7 @@ const ControlPageOne = () => {
         </article>
       </div>
 
-      <div className="control_btn_add_container">
+      <div className="control_btn_add_container ">
         <div
           className="control_btn_add_register"
           onClick={() => {
@@ -361,15 +391,19 @@ const ControlPageOne = () => {
           <p>+</p>
         </div>
 
-        <div
-          className="control_btn_PDF"
-          onClick={() => {
-            generarPDF();
-            setAnimatePDF(true);
-          }}
-        >
-          <p>P</p>
-        </div>
+        {Array.isArray(registros) && registros.length > 8 ? (
+          <div
+            className="control_btn_PDF"
+            onClick={() => {
+              generarPDF();
+              setAnimatePDF(true);
+            }}
+          >
+            <p>P</p>
+          </div>
+        ) : (
+          <div></div>
+        )}
       </div>
 
       <div className={(animatePDF ? "move_animated_pdf" : "") + " control_pdf"}>

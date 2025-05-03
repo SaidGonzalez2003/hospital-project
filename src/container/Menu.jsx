@@ -99,7 +99,7 @@ const Menu = ({ menuAllDash, page, setPage }) => {
             menuAllDash ? "dashboard_texts_active" : "dashboard_texts_desactive"
           }
         >
-          Pacientes
+          Citas
         </h3>
       </div>
 

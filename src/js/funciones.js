@@ -102,8 +102,6 @@ export const ControlGraficoImpresión = (data) => {
 
   const cantidades = data.map((value) => formatearFecha(value.fecha));
 
-  console.log(cantidades.length);
-
   const grafico = {
     title: {
       text: "Grafico Analisis de Información",
@@ -170,16 +168,14 @@ export const fechaActual = () => {
 };
 
 export const getFecha = (fecha) => {
-
   const data = new Date(fecha);
 
   const dia = data.getDate().toString().padStart(2, "0");
   const mes = (data.getMonth() + 1).toString().padStart(2, "0");
-  const anio = data.getFullYear().toString()
-  
+  const anio = data.getFullYear().toString();
+
   // Formato: DD/MM/YYYY HH:MM:SS
   const fechaFormateada = `${dia}/${mes}/${anio} `;
-  
 
   return fechaFormateada;
 };
@@ -206,4 +202,38 @@ const formatearFecha = (fechaISO) => {
   ];
   const mesAbreviado = meses[fecha.getMonth()];
   return `${dia}-${mesAbreviado}`;
+};
+
+export const getToDay = () => {
+  const hoy = new Date();
+  const yyyy = hoy.getFullYear();
+  const mm = String(hoy.getMonth() + 1).padStart(2, "0");
+  const dd = String(hoy.getDate() + 1).padStart(2, "0"); // Día siguiente
+  return `${yyyy}-${mm}-${dd}`;
+};
+
+export const getHorasCita = (horasNoDisponibles = []) => {
+  const opciones = [];
+  const inicio = 8 * 60; // 8:00 en minutos
+  const fin = Math.floor(19.5 * 60); // 19:30 en minutos
+
+  // Extraemos solo las horas en formato "HH:MM"
+  const horasNoDisponiblesFormateadas = horasNoDisponibles.map((item) => {
+    const [hora, minutos] = item.hora.split(":");
+    return `${hora.padStart(2, "0")}:${minutos.padStart(2, "0")}`;
+  });
+
+  
+
+  for (let min = inicio; min <= fin; min += 45) {
+    const horas = String(Math.floor(min / 60)).padStart(2, "0");
+    const minutos = String(min % 60).padStart(2, "0");
+    const horaSimple = `${horas}:${minutos}`; // Solo HH:MM
+
+    if (!horasNoDisponiblesFormateadas.includes(horaSimple)) {
+      opciones.push(`${horaSimple}`); // Devolver en formato HH:MM:00
+    }
+  }
+  
+  return opciones;
 };

@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./App.css";
 import Menu from "./container/menu";
 import ControlPageOne from "./container/control/ControlPageOne";
+import CitasContainer from "./container/citas/CitasContainer";
 
 function App() {
   const [menuAllDash, setMenuAllDash] = useState(true);
@@ -17,7 +18,7 @@ function App() {
       case 1:
         return <div>Esta es la sección Acerca de.</div>;
       case 2:
-        return <div>Esta es la sección de Contacto.</div>;
+        return <CitasContainer/>;
       default:
         return <div>Sección no encontrada.</div>;
     }
