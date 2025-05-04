@@ -143,7 +143,6 @@ control_data_table::-webkit-scrollbar {
   font-size: 1.3vw;
   font-weight: 600;
   color: aliceblue;
-  
 }
 
 .control_table_data {
@@ -190,8 +189,6 @@ control_data_table::-webkit-scrollbar {
 .control_table_data tbody tr:hover {
   background-color: rgb(101, 218, 179);
 }
-
-
 
 /*Registro Agregar*/
 

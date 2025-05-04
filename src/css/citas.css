@@ -9,7 +9,7 @@
 }
 
 .citas_asignar_container {
-  width: 36%;
+  width: 38%;
 }
 
 .citas_asignar_container h2 {
@@ -167,7 +167,7 @@
 /*Programadas*/
 
 .scheduled_container {
-  width: 60%;
+  width: 62%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -187,6 +187,11 @@
   display: flex;
   flex-direction: column;
   gap: 1vw;
+  transition: scale 0.3s ease;
+
+  &:hover {
+    scale: 1.02;
+  }
 }
 
 .card_cita {
@@ -221,7 +226,7 @@
   flex-direction: column;
   justify-content: center;
   gap: 0.5vw;
-  padding-left:2%;
+  padding-left: 2%;
   font-size: 1vw;
 }
 
@@ -234,7 +239,6 @@
   font-size: 1vw;
   padding-right: 2%;
 }
-
 
 .card_citas_tipo_img img {
   width: 100%;
