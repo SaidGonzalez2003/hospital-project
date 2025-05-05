@@ -39,13 +39,13 @@
 .contrel_options_nav > li:hover {
   scale: 1.18;
   font-weight: 600;
-  color: #45b39d;
+  color: #16385b;
 }
 
 .control_opc_select {
   scale: 1.1;
   font-weight: 600;
-  color: #5daedc;
+  color: #16385b;
 }
 
 /*Metricas*/
@@ -78,7 +78,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #45b39d;
+  background-color: #16385b;
   gap: 0.6vw;
 }
 
@@ -119,9 +119,10 @@
   width: 35%;
   max-height: 74vh;
   height: min-content;
+  border-radius: 7px;
   overflow: auto;
-  border: 2px solid #45b39d;
-  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.15);
+  border: 2px solid #16385b;
+  box-shadow: 7px 7px 15px rgba(0, 0, 0, 0.20);
   overflow: auto;              /* Permite el scroll */
   scrollbar-width: none;       /* Firefox */
   -ms-overflow-style: none;
@@ -139,7 +140,7 @@ control_data_table::-webkit-scrollbar {
   position: sticky;
   top: 0;
   z-index: 5;
-  background-color: #44b09a;
+  background-color: #13314c;
   font-size: 1.3vw;
   font-weight: 600;
   color: aliceblue;
@@ -155,10 +156,11 @@ control_data_table::-webkit-scrollbar {
 }
 
 .control_table_data thead {
-  background-color: #80edd0;
+  background-color: #16385b;
   position: sticky; 
   z-index: 4;
   top: 5.5vh;
+  color: aliceblue;
 }
 
 /* Estilos para celdas */
@@ -172,7 +174,7 @@ control_data_table::-webkit-scrollbar {
 .delete-btn {
   background-color: transparent;
   border: none;
-  color: red;
+  color: #ed3333;
   font-weight: 500;
   cursor: pointer;
   transition: scale 0.4s ease-out;
@@ -183,11 +185,11 @@ control_data_table::-webkit-scrollbar {
 }
 
 .control_table_data tbody tr:nth-child(even) {
-  background-color: #bbf2e1;
+  background-color: #a6c2d8;
 }
 
 .control_table_data tbody tr:hover {
-  background-color: rgb(101, 218, 179);
+  background-color: #3271b1;
 }
 
 /*Registro Agregar*/

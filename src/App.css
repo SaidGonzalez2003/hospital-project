@@ -8,8 +8,8 @@ main{
 
 .dashboard_menu{
   height: 100%;
-  background-color: #45b39d;
-  box-shadow: 10px 0px 20px rgba(0, 0, 0, 0.25);
+  background-color: #16385b;
+  box-shadow: 10px 0px 20px rgba(46, 46, 46, 0.3);
   display: flex;
   position: sticky;
   top: 0;
@@ -28,7 +28,7 @@ main{
 
 .dashboard_controler{
   height: 7%;
-  background: #45b39d;
+  background: #16385b;
   content: "";
   position: absolute;
   right: -6%;

@@ -59,13 +59,14 @@
 
 .enviar_cita {
   margin-top: 2%;
-  background-color: #76d7c4;
+  background-color: #16385b;
   border: none;
   padding: 2% 0;
   cursor: pointer;
   transition: scale 0.4s ease;
   font-size: 1vw;
   font-weight: 600;
+  color: aliceblue;
 }
 
 .enviar_cita:hover {
@@ -74,7 +75,7 @@
 
 .citas_mensaje {
   width: 100%;
-  background: #4cbc7b;
+  background: #1d4a77;
 }
 
 .citas_mensaje > p {
@@ -161,7 +162,7 @@
 }
 
 .genero_background {
-  background-color: #a3e5be;
+  background-color: #16385b;
 }
 
 /*Programadas*/
@@ -211,7 +212,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #76d7c4;
+  background-color: #16385b;
 }
 
 .card_citas_genero img {

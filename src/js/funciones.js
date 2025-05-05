@@ -80,13 +80,13 @@ export const ControlGrafico = (data) => {
         symbol: "circle",
         symbolSize: 10,
         itemStyle: {
-          color: "#1abc9c", // Color de la línea
+          color: "#16385b", // Color de la línea
           // Opcional: si deseas un borde alrededor del punto, lo defines aquí
-          borderColor: "#1abc9c",
+          borderColor: "#16385b",
           borderWidth: 1,
         },
         lineStyle: {
-          color: "#1abc9c", // Aquí defines el color de la línea (rojo)
+          color: "#16385b", // Aquí defines el color de la línea (rojo)
         },
       },
     ],
@@ -140,13 +140,13 @@ export const ControlGraficoImpresión = (data) => {
           rotate: 90, // Muestra el valor numérico del punto
         },
         itemStyle: {
-          color: "#1abc9c", // Color de la línea
+          color: "#16385b", // Color de la línea
           // Opcional: si deseas un borde alrededor del punto, lo defines aquí
-          borderColor: "#1abc9c",
+          borderColor: "#16385b",
           borderWidth: 1,
         },
         lineStyle: {
-          color: "#1abc9c", // Aquí defines el color de la línea (rojo)
+          color: "#16385b", // Aquí defines el color de la línea (rojo)
         },
       },
     ],

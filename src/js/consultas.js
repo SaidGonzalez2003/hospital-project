@@ -1,12 +1,17 @@
 import axios from "axios";
 import { getHorasCita, validarFecha } from "./funciones";
 
+export const API = "http://192.168.1.69:3000/api";
+
 export const getRegistrosByLoteEnsayo = async (lote, ensayo) => {
+  const token = localStorage.getItem("token");
   try {
     // Hacer una solicitud GET al backend para obtener los registros
-    const response = await axios.get(
-      `http://localhost:3000/api/registros/${lote}/${ensayo}`
-    );
+    const response = await axios.get(`${API}/registros/${lote}/${ensayo}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data; // Devolver los datos
   } catch (error) {
     console.error("Hubo un error al obtener los registros:", error);
@@ -15,9 +20,14 @@ export const getRegistrosByLoteEnsayo = async (lote, ensayo) => {
 };
 
 export const getEnsayos = async () => {
+  const token = localStorage.getItem("token");
   try {
     // Hacer una solicitud GET al backend para obtener los registros
-    const response = await axios.get(`http://localhost:3000/api/ensayos`);
+    const response = await axios.get(`${API}/ensayos`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return response.data; // Devolver los datos
   } catch (error) {
@@ -27,18 +37,33 @@ export const getEnsayos = async () => {
 };
 
 export const deleteRegistroById = async (id) => {
-  await axios.delete(`http://localhost:3000/api/registros/${id}`);
+  const token = localStorage.getItem("token");
+  await axios.delete(`${API}/registros/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return "";
 };
 
 export const getLoteLastValue = async () => {
-  const result = await axios.get("http://localhost:3000/api/lotes/last");
+  const token = localStorage.getItem("token");
+  const result = await axios.get(API + "/lotes/last", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   return result.data[0].Id;
 };
 
 export const getAllLotes = async () => {
-  const result = await axios.get("http://localhost:3000/api/lotes/all");
+  const token = localStorage.getItem("token");
+  const result = await axios.get(API + "/lotes/all", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return result.data;
 };
 
@@ -59,11 +84,13 @@ export const addRegistros = async (data) => {
     if (!data.id_lote || isNaN(Number(data.id_lote))) {
       return "El valor lote debe tener algun valor";
     }
+    const token = localStorage.getItem("token");
 
-    const response = await axios.post(
-      "http://localhost:3000/api/registros/add",
-      data
-    );
+    const response = await axios.post(API + "/registros/add", data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return response;
   } catch (error) {
@@ -93,10 +120,13 @@ export const addCita = async (data) => {
       return false;
     }
 
-    const response = await axios.post(
-      "http://localhost:3000/api/citas/",
-      data
-    );
+    const token = localStorage.getItem("token");
+
+    const response = await axios.post(API + "/citas/", data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return response;
   } catch (error) {
@@ -105,10 +135,13 @@ export const addCita = async (data) => {
 };
 
 export const getHorasDisponibles = async (fecha) => {
+  const token = localStorage.getItem("token");
   try {
-    const response = await axios.get(
-      `http://localhost:3000/api/citas/hora/${fecha}`
-    );
+    const response = await axios.get(`${API}/citas/hora/${fecha}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return getHorasCita(response.data);
   } catch (error) {
@@ -126,13 +159,61 @@ export const formatDate = (fecha) => {
 
 export const getCitasFirst = async () => {
   try {
+    const token = localStorage.getItem("token");
     // Hacer una solicitud GET al backend para obtener los registros
-    const response = await axios.get(`http://localhost:3000/api/citas/first-citas`);
-    
+    const response = await axios.get(`${API}/citas/first-citas`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
     return response.data; // Devolver los datos
   } catch (error) {
     console.error("Hubo un error al obtener los registros:", error);
     return error; // Devolver el error si ocurre uno
+  }
+};
+
+export const loginForm = async (usuario, password) => {
+  try {
+    const res = await axios.post(`${API}/users/login`, { usuario, password });
+
+
+    localStorage.setItem("token", res.data.token);
+    return res.data;
+  } catch (err) {
+
+    if (err.status === 401) {
+      return 401
+    }
+
+    return 500;
+  }
+};
+
+export const logout = () => {
+  localStorage.removeItem("token");
+};
+
+export const getToken = () => {
+  return localStorage.getItem("token");
+};
+
+export const validarToken = async () => {
+  const token = localStorage.getItem("token");
+  if (!token) return { success: false };
+
+  try {
+    const res = await axios.get(API + "/users/validate", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return res.data; // { success: true, usuario: '...' }
+  } catch (error) {
+    console.log(error);
+    return { success: false };
   }
 };
 
